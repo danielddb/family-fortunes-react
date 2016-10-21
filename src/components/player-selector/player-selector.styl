@@ -1,0 +1,44 @@
+@require '../../settings/settings';
+
+.player-selector
+
+    &__inputs
+        display: flex
+
+    &__input,
+    &__button
+        display: block;
+        margin: 0;
+        padding: 1vw;
+        background: transparent;
+        border: $border-width solid yellow
+        color: yellow;
+        text-transform: uppercase
+
+        &:focus
+            outline: 0;
+
+    &__input
+        width: 40vw
+        margin-bottom: $line-height
+
+        &:first-child
+            margin-right: ($line-height/2)
+
+    &__button
+        margin: 0 auto
+        animation-name: floating
+        -webkit-animation-name: floating
+
+        animation-duration: 1.5s
+        -webkit-animation-duration: 1.5s
+
+        animation-iteration-count: infinite
+        -webkit-animation-iteration-count: infinite
+
+        font-weight: bold
+
+        &:disabled
+            animation-name: none
+            -webkit-animation-name: none
+            opacity: 0.4

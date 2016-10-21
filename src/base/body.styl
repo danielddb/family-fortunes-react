@@ -1,7 +1,7 @@
 @require '../settings/settings';
 
 html, body
-    font: 2.5vw/4vw 'draco', Arial, Helvetica, sans-serif;
+    font: $font-size/$line-height 'draco', Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: #000
@@ -9,12 +9,34 @@ html, body
     text-transform: uppercase;
 
 html
-  box-sizing: border-box
+    box-sizing: border-box
 
 *,
 *:before,
 *:after
-  box-sizing: inherit
+    box-sizing: inherit
 
 *:focus
     outline: 0
+
+.board
+    display: flex
+
+.u-text-center
+	text-align: center
+
+keyframes floating
+	0%
+		transform: translateY(0%)
+	50%
+		transform: translateY(8%)
+	100%
+		transform: translateY(0%)
+
+@-webkit-keyframes floating
+	0%
+		-webkit-transform: translateY(0%)
+	50%
+		-webkit-transform: translateY(8%)
+	100%
+		-webkit-transform: translateY(0%)

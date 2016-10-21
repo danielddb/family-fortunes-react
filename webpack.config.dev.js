@@ -30,7 +30,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel?presets[]=es2015,presets[]=react'
+                loader: 'babel'
             },
             {
                 test: /\.(jpg|png)$/,
@@ -40,7 +40,7 @@ module.exports = {
             {
                 test: /\.svg/,
                 exclude: /node_modules/,
-                loader: 'babel?presets[]=es2015,presets[]=react!svg-react'
+                loader: 'babel!svg-react'
             },
             {
                 test: /\.mp3/,

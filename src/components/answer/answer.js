@@ -17,7 +17,7 @@ class Answer extends React.Component {
     }
 
     handleKeyUp(e) {
-        if(this.getIndexAsKeyboardCode(e.keyCode) === this.props.index) {
+        if(this.getIndexAsKeyboardCode(e.keyCode) === this.props.index && !this.props.answered) {
             let file,
                 audio,
                 timeout = 1300;
