@@ -13,7 +13,7 @@ const data = [
         title: 'Name one of the reasons why www.npower.com goes down?',
         answers: [
             { title: 'SAP', total: 22 },
-            { title: 'Server/database issues', total: 2 },
+            { title: 'Server / Database issues', total: 2 },
             { title: 'UCM', total: 2 },
             { title: 'Maintenance', total: 2 },
             { title: 'DDOS attack', total: 2 },
@@ -22,7 +22,7 @@ const data = [
     {
         title: 'Name one of the most requested BAU types?',
         answers: [
-            { title: 'Content/Copy Changes', total: 18 },
+            { title: 'Content / Copy Changes', total: 18 },
             { title: 'Product Changes', total: 7 },
             { title: 'Vanity URLs', total: 5 },
             { title: 'Marketing Campaigns', total: 5 },
