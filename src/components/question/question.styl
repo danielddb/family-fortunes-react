@@ -1,5 +1,42 @@
+@require '../../settings/settings';
+
 .question
     width: 100%
 
     &__title
         margin-bottom: 1.5vw
+
+    &__answer
+        display: flex
+
+    &__answer-number
+        flex-basis: 8%
+
+    &__answer-title
+        flex-basis: 77%
+        border-bottom: $border-width dotted yellow
+
+        &--answered
+            border-bottom: transparent
+
+    &__answer-total
+        flex-basis: 15%
+        text-align: right
+
+        &--empty
+            font-weight: bold
+
+    &__total
+        display: flex
+        margin-top: 4vw
+
+    &__total-label
+        flex-basis: 85%
+        text-align: right
+
+    &__total-amount
+        flex-basis: 15%
+        text-align: right
+
+        &--empty
+            font-weight: bold

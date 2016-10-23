@@ -1,7 +1,7 @@
 import React from 'react';
-import style from './player-selector.styl';
+import style from './player-select.styl';
 
-class PlayerSelector extends React.Component {
+class PlayerSelect extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -22,26 +22,26 @@ class PlayerSelector extends React.Component {
 
     render() {
         return (
-            <div className="quiz">
+            <div className="player-select">
                 <h1>Today's teams</h1>
-                <form onSubmit={this.handleSubmit} className="player-selector">
-                    <div className="player-selector__inputs">
+                <form onSubmit={this.handleSubmit} className="player-select__form">
+                    <div className="player-select__inputs">
                         <input
                             type="text"
                             ref="player1Input"
                             onChange={this.handleChange}
                             value={this.state.player1Name}
-                            className="player-selector__input"
+                            className="player-select__input"
                             placeholder="Team 1" />
                         <input
                             type="text"
                             ref="player2Input"
                             onChange={this.handleChange}
                             value={this.state.player2Name}
-                            className="player-selector__input"
+                            className="player-select__input"
                             placeholder="Team 2" />
                     </div>
-                    <button className="player-selector__button" disabled={this.hasBothNames ? "" : "disabled"}>Start game</button>
+                    <button className="player-select__button" disabled={this.hasBothNames ? "" : "disabled"}>Start game</button>
                 </form>
             </div>
         );
@@ -67,8 +67,8 @@ class PlayerSelector extends React.Component {
     }
 }
 
-PlayerSelector.propTypes = {
+PlayerSelect.propTypes = {
     onPlayersSelected: React.PropTypes.func.isRequired
 };
 
-export default PlayerSelector;
+export default PlayerSelect;

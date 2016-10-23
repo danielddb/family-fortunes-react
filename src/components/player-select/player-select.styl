@@ -1,6 +1,6 @@
 @require '../../settings/settings';
 
-.player-selector
+.player-select
 
     &__inputs
         display: flex
@@ -19,7 +19,7 @@
             outline: 0;
 
     &__input
-        width: 40vw
+        width: 50%
         margin-bottom: $line-height
 
         &:first-child
@@ -29,10 +29,8 @@
         margin: 0 auto
         animation-name: floating
         -webkit-animation-name: floating
-
         animation-duration: 1.5s
         -webkit-animation-duration: 1.5s
-
         animation-iteration-count: infinite
         -webkit-animation-iteration-count: infinite
 
@@ -42,3 +40,19 @@
             animation-name: none
             -webkit-animation-name: none
             opacity: 0.4
+
+keyframes floating
+	0%
+		transform: translateY(0%)
+	50%
+		transform: translateY(8%)
+	100%
+		transform: translateY(0%)
+
+@-webkit-keyframes floating
+	0%
+		-webkit-transform: translateY(0%)
+	50%
+		-webkit-transform: translateY(8%)
+	100%
+		-webkit-transform: translateY(0%)

@@ -1,75 +1,46 @@
 import React from 'react';
-import Answer from '../answer/answer';
-import Total from '../total/total';
 import style from './question.styl';
 
-class Question extends React.Component {
+function Question({ number, playerAnswers, question }) {
+    const total = question.answers.map((answer, i) => playerAnswers.indexOf(i) !== -1 ? answer.total : 0)
+        .reduce((prev, curr) => prev + curr);
 
-    constructor() {
-        super();
-        this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
-        this.checkAnswer = this.checkAnswer.bind(this);
-    }
+    const answers = question.answers.map((answer, i) => {
+        return playerAnswers.indexOf(i) !== -1
+            ? (
+                <div className="question__answer" key={i}>
+                    <div className="question__answer-number">{i + 1}</div>
+                    <div className="question__answer-title question__answer-title--answered">{answer.title}</div>
+                    <div className="question__answer-total">{answer.total}</div>
+                </div>
+            )
+            : (
+                <div className="question__answer" key={i}>
+                    <div className="question__answer-number">{i + 1}</div>
+                    <div className="question__answer-title"></div>
+                    <div className="question__answer-total question__answer-total--empty">--</div>
+                </div>
+            );
+    });
 
-    handleAnswerSelected(answerIndex) {
-        this.props.onAnswerSelected(this.props.index, answerIndex);
-    }
-
-    checkAnswer(answerIndex) {
-        const { answers, index } = this.props;
-
-        return this.isAnswered(answers, index, answerIndex );
-    }
-
-    isAnswered(answers, questionIndex, answerIndex) {
-        return (answers[questionIndex] === undefined || answers[questionIndex][answerIndex] === undefined) ? false : true;
-    }
-
-    render() {
-        return (
-            <div className="question" ref={(ref) => this.question = ref}>
-                <div className="question__title">{this.props.index + 1}. {this.props.question.title}</div>
-                {this.props.question.answers.map((answer, i) => {
-                    return (
-                        <Answer 
-                        answer={answer}
-                        answered={this.checkAnswer(i)}
-                        index={i} 
-                        questionIndex={this.props.index}
-                        onAnswerSelected={this.handleAnswerSelected} key={i} />
-                    );
-                })}
-                <Total amount={this.total}/>
+    return (
+        <div className="question">
+            <div className="question__title">{number}. {question.title}</div>
+            <div className="question__answers">
+                {answers}
             </div>
-        );
-    }
-
-    get isComplete() {
-        const { answers, question, index } = this.props;
-        
-        let correct = true; 
-
-        question.answers.forEach((answer, i) => {
-            if(!this.isAnswered(answers, index, i ))
-                correct = false;
-        });
-
-        return correct;
-    }
-
-    get total() {
-        return this.props.question.answers.map((answer, i) => { 
-            return this.checkAnswer(i) ? answer.total : 0;
-         }).reduce((prev, curr) => prev + curr);
-    }
-
+            <div className="question__total">
+                <div className="question__total-label">Total</div>
+                <div className={total === 0 ? "question__total-amount question__total-amount--empty" : "question__total-amount" }>{total === 0 ? '--' : total}</div>
+            </div>
+        </div>
+    );
 }
 
 Question.propTypes = {
-    answers: React.PropTypes.object.isRequired,
-    index: React.PropTypes.number.isRequired,
-    onAnswerSelected: React.PropTypes.func.isRequired,
-    question: React.PropTypes.object.isRequired 
+    number: React.PropTypes.number.isRequired,
+    question: React.PropTypes.object.isRequired,
+    playerAnswers: React.PropTypes.array.isRequired
 };
 
 export default Question;

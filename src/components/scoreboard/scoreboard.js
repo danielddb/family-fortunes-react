@@ -1,19 +1,22 @@
 import React from 'react';
 import style from './scoreboard.styl';
 
-function Scoreboard({active, name, total}) {
+function Scoreboard({ active, player }) {
+    const divStyle = {
+        color: 'orange',
+        fontWeight: 'bold'
+    };
+
     return (
         <div className={active ? "scoreboard scoreboard--active" : "scoreboard"}>
-            <div className="scoreboard__name">{name}</div>
-            <div className={total === 0 ? "scoreboard__total scoreboard__total--empty" : "scoreboard__total" }>{total === 0 ? '--' : total}</div>
+            <div className="scoreboard__name">{player.name}</div>
+            <div className={player.total === 0 ? "scoreboard__total scoreboard__total--empty" : "scoreboard__total" }>{player.total === 0 ? '--' : player.total}</div>
         </div>
     );
 }
 
 Scoreboard.propTypes = {
-    active: React.PropTypes.bool.isRequired,
-    name: React.PropTypes.string.isRequired,
-    total: React.PropTypes.number.isRequired
+    player: React.PropTypes.object.isRequired
 };
 
 export default Scoreboard;
