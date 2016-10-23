@@ -17,7 +17,7 @@ class PlayerSelect extends React.Component {
     }
 
     get hasBothNames() {
-        return this.state.player1Name && this.state.player2Name;
+        return this.state.player1Name.trim() !== '' && this.state.player2Name.trim() !== '';
     }
 
     render() {

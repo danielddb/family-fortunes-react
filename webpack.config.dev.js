@@ -2,6 +2,7 @@ var autoprefixer = require('autoprefixer');
 var config = require('./app.config');
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var WebpackDevServer = require("webpack-dev-server");
 
 module.exports = {
@@ -18,7 +19,15 @@ module.exports = {
     },
     devtool: 'cheap-eval-source-map',
     plugins: [ 
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'Family Fortunes',
+            filename: '../index.html',
+            template: 'index.ejs',
+            minify: {
+                collapseWhitespace: true
+            }
+        })
     ],
     module: {
         loaders: [
@@ -31,16 +40,6 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel'
-            },
-            {
-                test: /\.(jpg|png)$/,
-                exclude: /node_modules/,
-                loader: 'url?limit=25000&name=img/[hash].[ext]',
-            },
-            {
-                test: /\.svg/,
-                exclude: /node_modules/,
-                loader: 'babel!svg-react'
             },
             {
                 test: /\.mp3/,

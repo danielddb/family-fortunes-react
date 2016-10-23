@@ -2,6 +2,7 @@ var config = require('./app.config');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var WebpackDevServer = require("webpack-dev-server");
 
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
     output: {
         filename: config.filenames.js.build,
         path: path.resolve(config.paths.build),
-        publicPath: config.paths.public
+        publicPath: './assets/'
     },
     devtool: 'source-map',
     module: {
@@ -25,14 +26,9 @@ module.exports = {
                 loader: 'babel-loader?presets[]=react&presets[]=es2015'
             },
             {
-                test: /\.(jpg|png)$/,
+                test: /\.mp3/,
                 exclude: /node_modules/,
-                loader: 'url?limit=25000&name=img/[hash].[ext]',
-            },
-            {
-                test: /\.svg/,
-                exclude: /node_modules/,
-                loader: 'babel?presets[]=es2015,presets[]=react!svg-react'
+                loader: 'file?name=audio/[hash].[ext]',
             },
             {
                 test: /\.(woff|woff2)$/,
@@ -65,12 +61,25 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env':{
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
         new webpack.optimize.UglifyJsPlugin({
             compressor: {
                 warnings: false,
             },
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
-        new ExtractTextPlugin("css/styles.css")
+        new ExtractTextPlugin("css/styles.css"),
+        new HtmlWebpackPlugin({
+            title: 'Family Fortunes',
+            filename: '../index.html',
+            template: 'index.ejs',
+            minify: {
+                collapseWhitespace: true
+            }
+        })
     ]
 };

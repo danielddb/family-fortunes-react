@@ -34,7 +34,7 @@ class Game extends React.Component {
     }
 
     handleKeyUp(e) {
-        if((this.state.progress == 0 || this.state.progress === 1) && e.keyCode === NEXT_KEY)
+        if((this.state.progress == 0 || this.state.progress == 1 || !this.state.progress >= 2) && e.keyCode === NEXT_KEY)
             this.updateProgress();
     }
 
@@ -74,16 +74,18 @@ class Game extends React.Component {
     }
 
     handleQuestionsComplete() {
-        const { player1, player2 } = this.state;
+        const { player1, player2, progress } = this.state;
 
-        this.updateProgress();
+        if(progress === 2) {
+            this.updateProgress();
 
-        if(player1.total == player2.total)
-            this.handlePlayerChange(this.winner)
-        else
-            this.handlePlayerChange(player1.total > player2.total ? 'player1' : 'player2');
+            if(player1.total == player2.total)
+                this.handlePlayerChange(this.winner)
+            else
+                this.handlePlayerChange(player1.total > player2.total ? 'player1' : 'player2');
 
-        this.state.completeAudio.play();
+            this.state.completeAudio.play();
+        }
     }
 
     handleMessageUpdate(message) {

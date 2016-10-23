@@ -296,7 +296,12 @@ class Questions extends React.Component {
         let divs = null;
 
         if(isBuzzerRound)
-            divs = <h1>Buzzer round!</h1>;
+            divs = (
+                <div className="u-text-center">
+                    <h1>Buzzer round!</h1>
+                    <p>Q{this.state.questionIndex + 1} of {this.state.data.length}</p>
+                </div>
+            );
         else {
             divs = (
                 <div className="questions">
