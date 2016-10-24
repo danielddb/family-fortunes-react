@@ -2,7 +2,7 @@ import Attempts from '../../components/attempts/attempts';
 import Question from '../../components/question/question';
 import React from 'react';
 import style from './questions.styl';
-import { ANSWER_KEY_MAP, PLAYER_KEY_MAP, ATTEMPT_KEY, NEXT_KEY } from '../../constants/app.js';
+import { ANSWER_KEY_MAP, PLAYER_KEY_MAP, ATTEMPT_KEY, WON_BOARD_KEY, NEXT_KEY } from '../../constants/app.js';
 
 const BUZZER_AUDIO = require('./audio/buzzer.mp3'), 
     CORRECT_AUDIO = require('./audio/correct-no-presenter.mp3'),
@@ -37,6 +37,11 @@ class Questions extends React.Component {
         const { currentPlayer } = this.props;
 
         if(this.state.disableInput) return;
+
+        if(e.keyCode === WON_BOARD_KEY) {
+            const audio = new Audio(WON_BOARD_AUDIO);
+            audio.play();
+        }
 
         if(currentPlayer === '') {
             if(PLAYER_KEY_MAP[e.keyCode]) {
@@ -105,11 +110,18 @@ class Questions extends React.Component {
             const audio = new Audio(INCORRECT_AUDIO);
             audio.play();
 
+            if(this.currentQuestionAttemptsForCurrentPlayer == 1
+                && this.currentQuestionAttemptsForOpponent == 0
+                && isBuzzerRound
+                && this.currentQuestionAnswers.length === 1) {
+                    this.props.onPlayerChange(this.opponentKey);
+                    this.props.onMessageUpdate(`${this.props[this.props.currentPlayer].name}, play or pass?`);
+            }
             // if current player has had 1 attempt
             // and opponent has had no attempts
             // and is buzzer round
             // switch player.
-            if(this.currentQuestionAttemptsForCurrentPlayer == 1
+            else if(this.currentQuestionAttemptsForCurrentPlayer == 1
                 && this.currentQuestionAttemptsForOpponent == 0
                 && isBuzzerRound) {
                     this.props.onPlayerChange(this.opponentKey);
