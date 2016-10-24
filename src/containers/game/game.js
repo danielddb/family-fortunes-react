@@ -25,8 +25,6 @@ class Game extends React.Component {
 
     componentDidMount() {
         window.addEventListener('keyup', this.handleKeyUp);
-
-        this.state.themeAudio.play();
     }
 
     componentWillUnMount() {
@@ -34,7 +32,7 @@ class Game extends React.Component {
     }
 
     handleKeyUp(e) {
-        if((this.state.progress == 0 || this.state.progress == 1 || !this.state.progress >= 2) && e.keyCode === NEXT_KEY)
+        if((this.state.progress == 0 || this.state.progress == 1 || this.state.progress == 2 || !this.state.progress >= 3) && e.keyCode === NEXT_KEY)
             this.updateProgress();
     }
 
@@ -76,7 +74,7 @@ class Game extends React.Component {
     handleQuestionsComplete() {
         const { player1, player2, progress } = this.state;
 
-        if(progress === 2) {
+        if(progress === 3) {
             this.updateProgress();
 
             if(player1.total == player2.total)
@@ -99,9 +97,11 @@ class Game extends React.Component {
             progress: this.state.progress + 1
         });
 
-        if(this.state.progress === 2)
-            this.state.themeAudio.pause();
+        if(this.state.progress === 1)
+            this.state.themeAudio.play();
         else if(this.state.progress === 3)
+            this.state.themeAudio.pause();
+        else if(this.state.progress === 4)
             this.state.themeAudio.pause();
     }
 
@@ -117,20 +117,23 @@ class Game extends React.Component {
             { data } = this.props;
         
         if(progress === 0) {
+            return null;
+        }
+        if(progress === 1) {
             return (
                 <div className="game">
                     <h1>Family Fortunes</h1>
                 </div>
             );
         }
-        if(progress === 1) {
+        if(progress === 2) {
             return (
                 <div className="game">
                     <PlayerSelect onPlayersSelected={this.handlePlayersSelected.bind(this)} />
                 </div>
             );
         }
-        else if(progress === 2) {
+        else if(progress === 3) {
             return (
                 <div className="game">
                     <div className="scoreboards">
@@ -150,7 +153,7 @@ class Game extends React.Component {
                 </div>
             );
         }
-        else if(progress === 3) {
+        else if(progress === 4) {
             return (
                 <div className="game">
                     <div className="scoreboards">
